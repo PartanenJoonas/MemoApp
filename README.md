@@ -1,0 +1,1 @@
+School project with React Native
