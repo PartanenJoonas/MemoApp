@@ -1,12 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, Keyboard, ScrollView, View, StatusBar } from 'react-native';
+import ActionBar from './components/ActionBar'
+import Note from './components/note'
 
 export default function App() {
+  
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
+      
+      
+      
+      <View style={styles.note}>
+        <Note></Note>
+      </View>
+        
+      <View style={styles.actionbar}>  
+        <ActionBar></ActionBar>
+      </View>
+      
+     
     </View>
   );
 }
@@ -14,8 +28,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection:'column',
+    backgroundColor: "#0c154a",
+    justifyContent: 'flex-end',
+    alignItems: "center"
+    
   },
+  actionbar: {
+    flex: 0,
+    
+  },
+  note: {
+    paddingTop: 10,
+    flex: 14,
+    width: '80%',
+    height: 'auto',
+    paddingBottom: 20,
+    alignItems: 'center'
+  }
+
+  
 });
