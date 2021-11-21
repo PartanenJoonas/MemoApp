@@ -1,49 +1,83 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Pressable, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { MenuProvider } from 'react-native-popup-menu';
-import { Menu, MenuOptions, MenuOption, MenuTrigger, renderers } from 'react-native-popup-menu';
+import { StyleSheet, Text, View, Pressable, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+
 
 const ActionBar = (props) =>{
 
     function print(){
         console.log('asda')
     };
-   const [modal,setModal] = useState(false)
-
+    const [modalMid, setModalMid] = useState(false)
+    const [modalLeft, setModalLeft] = useState(false)
+    const [modalRight, setModalRight] = useState(false)
     return(
         
         <View style={styles.container}> 
             
             
 
-            <View style={styles.lowerpart}>   
-                <Pressable style={styles.sidebuttons} onPress ={() => console.log('left button clicked')}>
-                    <Text style={styles.text}>+</Text>
-                </Pressable>
+            <View style={styles.lowerpart}>
+
+                <Pressable style = {({ pressed}) => [
+                        pressed ? { opacity : 0.8 } : {},
+                        styles.sidebuttons
+                ]} onPress={() => setModalLeft(true)}>
+                <Text style={styles.text}>+</Text>
+            </Pressable>
+            <Modal
+            animationType='slide'
+            transparent={true}
+            visible={modalLeft}
+            onRequestClose={() => {setModalLeft(false)}}
+            > 
+            {/* for closing the popupmenu */}
+                <TouchableOpacity
+                    style={styles.touchableopacityLeft}
+                    activeOpacity={1}
+                    onPressOut={() => setModalLeft(false) }>
+                {/* for disabling it from the actual menu so its usable */}
+                <TouchableWithoutFeedback>
+                <View style={styles.centerview}>
+                    <View style={styles.modalview}>
+                        <Pressable style={styles.modalbuttons}>
+                            <Text style={styles.modalbuttonstext}>Notes</Text>
+                        </Pressable>
+                        <Pressable style={styles.modalbuttons}>
+                            <Text style={styles.modalbuttonstext}>Schedule</Text>
+                        </Pressable>
+                        <Pressable style={styles.modalbuttons}>
+                            <Text style={styles.modalbuttonstext}>Gym</Text>
+                        </Pressable>
+                    </View>
+                </View>
+                </TouchableWithoutFeedback>   
+                </TouchableOpacity>    
+            </Modal>
 
             
-                
+                {/* fix the overlapping issue with middle button */}
                     <Pressable 
                         style={({ pressed }) => [
                             pressed ? { opacity: 0.8 } : {}, 
                             styles.middlebutton,                       
                         ]}
-                        onPress={() => setModal(true)}>
+                        onPress={() => setModalMid(true)}>
                         <Text style={styles.midtext}>+</Text>
                     </Pressable>
                     <Modal
                     animationType='slide'
                     transparent={true}
-                    visible={modal}
-                    onRequestClose={() => {setModal(false)}}
-                    >
+                    visible={modalMid}
+                    onRequestClose={() => {setModalMid(false)}}
+                    > 
+                    {/* for closing the popupmenu */}
                         <TouchableOpacity
-                            style={styles.centerview}
+                            style={styles.touchableopacity}
                             activeOpacity={1}
-                            onPressOut={() => setModal(false) }>
-                        {/*  title= "<-" onPress ={() => setModal(false)} */}
+                            onPressOut={() => setModalMid(false) }>
+                        {/* for disabling it from the actual menu so its usable */}
                         <TouchableWithoutFeedback>
-                        <View style={styles.touchableopacity}>
+                        <View style={styles.centerview}>
                             <View style={styles.modalview}>
                                 <Pressable style={styles.modalbuttons}>
                                     <Text style={styles.modalbuttonstext}>Notes</Text>
@@ -54,9 +88,6 @@ const ActionBar = (props) =>{
                                 <Pressable style={styles.modalbuttons}>
                                     <Text style={styles.modalbuttonstext}>Gym</Text>
                                 </Pressable>
-                                <Pressable style={styles.modalbuttons} onPress ={() => setModal(false)}>
-                                    <Text style={styles.modalbuttonstext}>Back</Text>
-                                </Pressable>
                             </View>
                         </View>
                         </TouchableWithoutFeedback>   
@@ -65,9 +96,41 @@ const ActionBar = (props) =>{
                     
                 
 
-                <Pressable style={styles.sidebuttons} onPress ={() => console.log('left button clicked')}>
+                <Pressable style={({ pressed }) => [
+                    pressed ? { opacity : 0.8 } : {},
+                    styles.sidebuttons
+                ]} onPress ={() => setModalRight(true)}>
                     <Text style={styles.text}>+</Text>
                 </Pressable>
+                <Modal
+                    animationType='slide'
+                    transparent={true}
+                    visible={modalRight}
+                    onRequestClose={() => {setModalRight(false)}}
+                    > 
+                    {/* for closing the popupmenu */}
+                        <TouchableOpacity
+                            style={styles.touchableopacityRight}
+                            activeOpacity={1}
+                            onPressOut={() => setModalRight(false) }>
+                        {/* for disabling it from the actual menu so its usable */}
+                        <TouchableWithoutFeedback>
+                        <View style={styles.centerview}>
+                            <View style={styles.modalview}>
+                                <Pressable style={styles.modalbuttons}>
+                                    <Text style={styles.modalbuttonstext}>Notes</Text>
+                                </Pressable>
+                                <Pressable style={styles.modalbuttons}>
+                                    <Text style={styles.modalbuttonstext}>Schedule</Text>
+                                </Pressable>
+                                <Pressable style={styles.modalbuttons}>
+                                    <Text style={styles.modalbuttonstext}>Gym</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                        </TouchableWithoutFeedback>   
+                        </TouchableOpacity>    
+                    </Modal>
         </View> 
             </View>
     )
@@ -80,7 +143,8 @@ const styles = StyleSheet.create({
         height: 65,
         backgroundColor: '#0c154a',
         flexDirection: 'column',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        
     },
     lowerpart: {
         width: '100%',
@@ -110,6 +174,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         paddingHorizontal: 10,
+        marginHorizontal: 60,
         borderRadius: 10,
         borderColor: '#000000',
         borderWidth: 1,
@@ -132,43 +197,68 @@ const styles = StyleSheet.create({
     /* ModalView styles */
     touchableopacity: {
         flex: 1,
+        // for debuggin
+        //backgroundColor: '#4a4a4a',
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center',
+        width: '100%',
+    },
+    touchableopacityLeft: {
+        flex: 1,
+        // for debuggin
+        //backgroundColor: '#4a4a4a',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
+        width: '100%',
+    },
+    touchableopacityRight: {
+        flex: 1,
+        // for debuggin
+        //backgroundColor: '#4a4a4a',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        width: '100%',
     },
     centerview: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        paddingBottom: 30,
+        borderRadius: 10,  
+        paddingBottom: 0,
+        marginBottom: 45,
+        // for debuggin
+        //backgroundColor: '#ffffff'
+        //backgroundColor: '#0c154a',
     },
     modalview: {
-        margin: 20, 
-        alignItems: 'center',
+        margin: 0, 
         borderRadius: 10,
         padding: 20,
+        opacity: 0.99,
+        backgroundColor: '#0c154a',
         shadowColor: "#000",
         shadowOffset: {
-        width: 0,
-        height: 1
+        width: 1,
+        height: 2
         },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.5,
         shadowRadius: 2,
         elevation: 3
         },
     modalbuttons: {
         backfaceVisibility: 'visible',
-        borderColor: '#000000',
-        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        borderWidth: 1.2,
         borderRadius: 10,
+        marginVertical: 2,
         width: 120,
         justifyContent: 'center',
         alignItems: 'center'
     },
     modalbuttonstext: {
-        fontSize: 25,
-        paddingHorizontal: 2
+        fontSize: 20,
+        paddingHorizontal: 2,
+        color: '#e0e0e0'
     }
     
     
