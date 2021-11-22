@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer, useNavigation } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import Note from '../screens/note';
 import Schedules from '../screens/scheludes';
 

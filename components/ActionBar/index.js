@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import GoToButton from '../NavButton';
 
-function ActionBar  ({ navigation }) {
+
+
+function ActionBar  ( {navigation} ) {
+
+    
 
     const handdlepress = () => {
         navigation.navigate('Schedules');
@@ -43,7 +46,9 @@ function ActionBar  ({ navigation }) {
                         <Pressable style={styles.modalbuttons} >
                             <Text style={styles.modalbuttonstext}>Notes</Text>
                         </Pressable>
-                        <GoToButton screenName = {'Schedules'} style={styles.modalbuttons}></GoToButton>
+                        <Pressable style={styles.modalbuttons}>
+                            <Text style={styles.modalbuttonstext}>Schedule</Text>
+                        </Pressable>
                         <Pressable style={styles.modalbuttons}>
                             <Text style={styles.modalbuttonstext}>Gym</Text>
                         </Pressable>

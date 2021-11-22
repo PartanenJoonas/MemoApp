@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
       
     },
     actionbar: {
-        flex: 1,
+        flex: 0.9,
         
         
       },
