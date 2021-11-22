@@ -1,36 +1,44 @@
 
 import React from 'react';
 import { StyleSheet, Text, Keyboard, ScrollView, View, StatusBar } from 'react-native';
-import { MenuProvider } from 'react-native-popup-menu';
-import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
-import ActionBar from './components/ActionBar'
-import Note from './components/note'
+import ActionBar from './components/ActionBar';
+import Note from './components/note';
+import Navigator from './routes/homeStack';
 
-export default function App() {
+export default function App({ navigation }) {
   
   return (
     
-    <View style={styles.container}>
+    
+    <View style={styles.actionbar}>
+        <Navigator style={styles.navigator}/>
+        
+        
+        <ActionBar navigation = { navigation }></ActionBar>
+    </View>
+        
+    );
+  }
+    {/*
+<View style={styles.container}>
       <StatusBar style="auto" />
       
-  
-        <View style={styles.note}>
       
-        <Note ></Note>
-        </View>
+  
+        
         
         <View style={styles.actionbar}>
         <ActionBar>styles={styles.actionbar}</ActionBar>
 
-        </View>
+  </View>
         
 
       
      
-    </View>
+</View>*/}
     
-  );
-}
+ 
+
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +49,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
     
   },
+  navigator:{
+    flex : 1,
+    width: '80%',
+    marginHorizontal: 15,
+  },
   actionbar: {
     flex: 1,
     
@@ -49,9 +62,11 @@ const styles = StyleSheet.create({
   note: {
     paddingTop: 10,
     flex: 12,
+    opacity : 0,
     width: '80%',
     height: 'auto',
     paddingBottom: 10,
+    justifyContent: 'center',
     alignItems: 'center',
   }, 
   middlebutton: {

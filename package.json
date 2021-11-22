@@ -10,16 +10,30 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "~43.0.2",
+    "@react-navigation/native": "^6.0.6",
+    "expo": "^4.13.0",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "0.64.3",
+    "react-native": "^0.66.3",
     "react-native-popup-menu": "^0.15.11",
-    "react-native-web": "0.17.1"
+    "react-native-screens": "~3.8.0",
+    "react-native-web": "0.17.1",
+    "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "description": "School project with React Native",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PartanenJoonas/MemoApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PartanenJoonas/MemoApp/issues"
+  },
+  "homepage": "https://github.com/PartanenJoonas/MemoApp#readme"
 }

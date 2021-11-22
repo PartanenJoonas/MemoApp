@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import GoToButton from '../NavButton';
 
+function ActionBar  ({ navigation }) {
 
-const ActionBar = (props) =>{
+    const handdlepress = () => {
+        navigation.navigate('Schedules');
+    }
 
-    function print(){
-        console.log('asda')
-    };
     const [modalMid, setModalMid] = useState(false)
     const [modalLeft, setModalLeft] = useState(false)
     const [modalRight, setModalRight] = useState(false)
@@ -39,12 +40,10 @@ const ActionBar = (props) =>{
                 <TouchableWithoutFeedback>
                 <View style={styles.centerview}>
                     <View style={styles.modalview}>
-                        <Pressable style={styles.modalbuttons}>
+                        <Pressable style={styles.modalbuttons} >
                             <Text style={styles.modalbuttonstext}>Notes</Text>
                         </Pressable>
-                        <Pressable style={styles.modalbuttons}>
-                            <Text style={styles.modalbuttonstext}>Schedule</Text>
-                        </Pressable>
+                        <GoToButton screenName = {'Schedules'} style={styles.modalbuttons}></GoToButton>
                         <Pressable style={styles.modalbuttons}>
                             <Text style={styles.modalbuttonstext}>Gym</Text>
                         </Pressable>
@@ -79,10 +78,20 @@ const ActionBar = (props) =>{
                         <TouchableWithoutFeedback>
                         <View style={styles.centerview}>
                             <View style={styles.modalview}>
-                                <Pressable style={styles.modalbuttons}>
+                                <Pressable 
+                                style={({ pressed }) => [
+                                    pressed ? { opacity: 0.8 } : {}, 
+                                    styles.modalbuttons,                       
+                                ]}
+                                onPress = {() => navigation.navigate('Note') } >
                                     <Text style={styles.modalbuttonstext}>Notes</Text>
                                 </Pressable>
-                                <Pressable style={styles.modalbuttons}>
+                                <Pressable 
+                                style={({ pressed }) => [
+                                    pressed ? { opacity: 0.8 } : {}, 
+                                    styles.modalbuttons,                       
+                                ]}
+                                onPress = {() => navigation.navigate('Schedules') } >
                                     <Text style={styles.modalbuttonstext}>Schedule</Text>
                                 </Pressable>
                                 <Pressable style={styles.modalbuttons}>
