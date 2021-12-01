@@ -1,17 +1,80 @@
-import React from 'react';
+import React, { useState, Component } from 'react';
 import { StyleSheet, Text, Keyboard, ScrollView, View, TextInput, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ActionBar from '../../components/ActionBar';
+import { render } from 'react-dom';
 
-export default function Note ( { navigation }) {
+export default class Note extends Component {
     
-    {
+    state = {
+        title: '',
+        content:''
+    }
+    constructor(props) {
+        super(props);
+        this.getDataFromAsync();
+    }
+
+    //DEBUG FUNCTION
+    debug = () => {
+        console.log(this.state.content.split('\\n'))
+    }
+    
+    saveButton = async () => {
+
+        //TITLE 
+        const newTitle = JSON.stringify(this.state.title)
+        const formattedTitle = newTitle.slice(1, newTitle.length-1) 
+        //CONTENT
+        const newContent = JSON.stringify(this.state.content)
+        const formattedContent = newContent.slice(1, newContent.length-1)
+
+        console.log(formattedTitle)
+        console.log(formattedContent)
+        try {
+            await AsyncStorage.setItem('title', formattedTitle)
+            await AsyncStorage.setItem('content', formattedContent)
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+    getDataFromAsync = async () => {
+        try {
+            const titleFromStorage = await AsyncStorage.getItem('title')
+            const contentFromStorage = await AsyncStorage.getItem('content')
+            if (titleFromStorage !== null) {
+                this.setState({ title: titleFromStorage})
+            }
+            if (contentFromStorage !== null) {
+            
+                this.setState({ content: contentFromStorage.replace(/\\n/g, '\n') })
+            }
+        } catch (err) {
+            
+        }
+    }
+
+    
+    render() {
         return ( 
             <View style={styles.container}>
                 
                 <View style={styles.centerview}>
-                    <TextInput style={styles.header} placeholder='Otsikko'></TextInput>
+                    <TextInput 
+                    value={this.state.title} 
+                    style={styles.header} 
+                    placeholder='Otsikko'
+                    onChangeText={value=> this.setState({ title: value })}
+                    ></TextInput>
                     <ScrollView>
-                        <TextInput multiline style={styles.noteinput} placeholder='lisää asia'></TextInput>
+                        <TextInput 
+                        multiline
+                        value={this.state.content} 
+                        style={styles.noteinput} 
+                        placeholder='lisää asia'
+                        onChangeText={value=> this.setState({ content: value })}
+                        ></TextInput>
                     </ScrollView>
                 </View>
 
@@ -19,10 +82,10 @@ export default function Note ( { navigation }) {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.text}>del</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={this.debug}>
                         <Text style={styles.text}>old</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={this.saveButton}>
                         <Text style={styles.text}>save</Text>
                     </TouchableOpacity>
                 </View>
@@ -31,6 +94,7 @@ export default function Note ( { navigation }) {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -78,3 +142,9 @@ const styles = StyleSheet.create({
 
 })
 
+/*this.state = {
+    title: 'header',
+    content: 'content',
+}
+
+*/
