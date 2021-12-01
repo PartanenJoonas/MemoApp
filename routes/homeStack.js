@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import Note from '../screens/note';
-import Schedules from '../screens/scheludes';
+import Note from '../app/screens/note';
+import Schedules from '../app/screens/scheludes';
 
 const screens = {
     Note: {
