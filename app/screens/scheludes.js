@@ -11,6 +11,7 @@ export default function Schedules ( { navigation } ) {
                     <TextInput></TextInput>
                 </View>
             </View> 
+            
         </View>
         
     )

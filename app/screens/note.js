@@ -3,6 +3,7 @@ import { StyleSheet, Text, Keyboard, ScrollView, View, TextInput, TouchableOpaci
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ActionBar from '../../components/ActionBar';
 import { render } from 'react-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
 export default class Note extends Component {
     
