@@ -21,6 +21,13 @@ export default class Note extends Component {
     debug = () => {
         console.log(this.state.content.split('\\n'))
     }
+
+    clearAll =  () => {
+        this.setState({content : ''})
+        this.setState({title : ''}, this.saveButton)
+        
+        
+    }
     
     saveButton = async () => {
 
@@ -81,17 +88,14 @@ export default class Note extends Component {
                 </View>
 
                 <View style={styles.bottomTab}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress ={this.clearAll}>
                         <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
-                        <Text style={styles.text}>del</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.debug}>
                         <FontAwesomeIcon icon = {faFolder} style={styles.text} />
-                        <Text style={styles.text}>old</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.saveButton}>
                         <FontAwesomeIcon icon = {faSave} style={styles.text} />
-                        <Text style={styles.text}>save</Text>
                     </TouchableOpacity>
                 </View>
 

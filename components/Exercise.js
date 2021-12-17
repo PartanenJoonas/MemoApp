@@ -3,42 +3,30 @@ import { StyleSheet, Text, View, Pressable, Modal, TouchableOpacity, TouchableWi
 
 const Exercise = ( props ) => {
 
-    const exercises = []
+ 
+    
 
-    if ( props.name != "" ) {
-
-    } else {
+    if (props.exercise !== undefined)
+    {   return(
         
-    const exercise = {
-        name: props.name, 
-        sets: props.sets,
-        reps: props.reps,
-        weights: props.weight,
-    }   
-
-    exercises.push(exercise)
-    console.log(exercises.length)
-
-}
-    for (let i = 0; i < exercises.length; i++) {
-        console.log(exercises[i]);
-        return(
-        
+            
             <View style={styles.container}>
-                <Text>{exercises[i].name}</Text>
-                <Text>{exercises[i].sets + 'x' + exercises[i].reps}</Text>
-                <Text>{exercises[i].weights}</Text>
+                <Text>{props.exercise[0]}</Text>
+                <Text>{props.exercise[1] + ' x ' + props.exercise[2]}</Text>
+                <Text>{props.exercise[3]}</Text>
+                
+                
             </View>
         
-        
+            
         )   
-    
     }
+    
 }
 
 const styles = StyleSheet.create({
     container: {
-
+        backgroundColor: '#fff'
     },
 })
 

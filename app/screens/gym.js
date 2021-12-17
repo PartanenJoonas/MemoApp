@@ -8,86 +8,103 @@ export default class Gym extends Component {
 
     state = {
         title: '',
-        newPage: true,
-        modal: true,
-        showNew: true,
-        exerciseCount = 0,
+        newPage: false,
+        modal: false,
+        showNew: false,
+        exercises: [],
+        exercise: [],
         exerName: '',
         exerSets:'',
         exerReps: '',
         exerWeight:'',
     };
 
-    
+    handdleChange = () =>  {
+        
+        
+            console.log("from handler")
+            this.setState({exercise : [this.state.exerName, this.state.exerSets, this.state.exerReps, this.state.exerWeight]}, )
+        
+         
+    }
 
+    debug = () => {
+        
+        console.log('debug starts')
+        console.log(this.state.exercise)
+        console.log('--------------------------')
+        console.log(this.state.exercises)
+    }
+
+    debug2 = () => {
+        console.log(this.state.exercises[2])
+    }
+    
     showExercise = () => {
         
         
-        
-
-        
-            /*this.setState({exerName : '' })
-            this.setState({exerSets : '' })
-            this.setState({exerReps : '' })
-            this.setState({exerWeight : '' })*/
-
-
+        this.setState({exercise : [this.state.exerName, this.state.exerSets, this.state.exerReps, this.state.exerWeight]}, function () {
+            this.setState({exercises : [...this.state.exercises, this.state.exercise ]}, console.log("done") )
+        })
             
-
+    
+        this.setState({ showNew : true}, function() {
+            this.setState({exerName : ''})
+            this.setState({exerSets : ''})
+            this.setState({exerReps : ''})
+            this.setState({exerWeight : ''})
+        })
+    
         
-
-        this.setState({ showNew : true})
+        
     }
 
-    save = (event, index) => {
+    modalClose = () => {
         //Modalthis.setState({ exercises : [...this.state.exercises, ]})
-        console.log(this.state.exerSets + 'x' + this.state.exerReps);
-        this.setState({showNew : true})
+        //this.setState({exercises : [...this.state.exercises, this.state.exercise ]}, console.log("done") )
+        this.setState({modal : false})
         
-        
-            
-                this.setState({exercises : this.state.exerName}),
-                /*this.state.exercises.object[0].exerSets=this.state.exerSets,
-                this.state.exercises.object[0].exerReps=this.state.exerReps,
-                this.state.exercises.object[0].exerWeight=this.state.exerWeight,*/
-            
-        
-        
-        console.log(this.state.exercises)
+                 
+               
     }
     
     render(){
-        let Exercisetest = <Exercise name={this.state.exerName}
-        sets={this.state.exerSets}
-        reps={this.state.exerReps}
-        weight={this.state.exerWeight}></Exercise>
+        
         const newPage = this.state.newPage
         let pageContent;
         if ( newPage == false ) 
         {
             pageContent =   <TouchableOpacity style={styles.newButton} onPress={() => this.setState({ newPage : true }) }>
-                                <Text style={styles.text}>+ Lisää uusi ohjelma</Text>
+                                <FontAwesomeIcon icon = {faPlusCircle}/>
+                                <Text style={styles.text}>Add new workout</Text>
                             </TouchableOpacity>
         } else 
         {
             pageContent =   <View>
                                 <TextInput multiline maxLength={60} style={styles.header}
-                                    placeholder="Otsikko"
+                                    placeholder="Title"
                                 ></TextInput>
 
-                               
+                         
                                 
-                                {/*{this.state.showNew &&
-                                <Exercise style={{opacity:'0'}}
+                                {this.state.showNew && 
+                                this.state.exercises.map((exercise, index) => {
+                                   /* 
+                                    console.log('------------');
+                                    console.log(this.state.exercises);
+                                   */ 
+                                    if (exercise[0] !== "" )
+                                        return <Exercise   style={{opacity:'0'}}
+                                                key={index}
+                                                exercise={exercise}/>
 
-                                    name={this.state.exerName}
-                                    sets={this.state.exerSets}
-                                    reps={this.state.exerReps}
-                                    weight={this.state.exerWeight} />
+                    
+                                })
+                                  
                                 
                                 }
                                 
-                                    this.state.exercises.map((exercise) => {
+                                {/*    this.state.exercises.map((exercise) => {
                                         return <Exercise
                                             name={this.state.exerName}
                                             sets={this.state.exerSets}
@@ -95,10 +112,16 @@ export default class Gym extends Component {
                                             weight={this.state.exerWeight}
                                         ></Exercise>
                                     }) 
+                                    <Exercise style={{opacity:'0'}}
+
+                                    name={this.state.exerName}
+                                    sets={this.state.exerSets}
+                                    reps={this.state.exerReps}
+                                    weight={this.state.exerWeight} />
                                 }*/}
                                 <TouchableOpacity style={styles.addButton} onPress={() => this.setState({ modal : true })}>
                                     <FontAwesomeIcon icon ={ faPlusCircle } style={styles.icon}/>
-                                    <Text>Lisää uusi liike</Text>
+                                    <Text>Add new</Text>
                                 </TouchableOpacity>
                                 <Modal
                                     animationType='slide'
@@ -121,18 +144,21 @@ export default class Gym extends Component {
                                             <View style={styles.modalContent}>
                                                 <Text> Liike: </Text>
                                                 <TextInput 
+                                                value={this.state.exerName}
                                                 placeholder = 'Liikkeen nimi'
                                                 onChangeText = {value=> this.setState({ exerName : value })}
                                                 ></TextInput>
                                             </View>
                                             <View style={styles.modalContent}>
                                                 <Text> Sarjat: </Text>
-                                                <TextInput 
+                                                <TextInput
+                                                value={this.state.exerSets} 
                                                 placeholder = 'Sarjat'
                                                 onChangeText = {value=> this.setState({ exerSets : value })}
                                                 ></TextInput>
                                                 <Text> Toistot: </Text>
                                                 <TextInput 
+                                                value={this.state.exerReps}
                                                 placeholder = 'Toistot'
                                                 onChangeText = {value=> this.setState({ exerReps : value })}
                                                 ></TextInput>
@@ -140,6 +166,7 @@ export default class Gym extends Component {
                                             <View style={styles.modalContent}>
                                                 <Text> Vastus: </Text>
                                                 <TextInput 
+                                                value={this.state.exerWeight}
                                                 placeholder = 'Vastus (kg)'
                                                 onChangeText = {value=> this.setState({ exerWeight : value })}
                                                 ></TextInput>
@@ -152,7 +179,7 @@ export default class Gym extends Component {
                                                 </TouchableOpacity>
                                                 <TouchableOpacity 
                                                 style={styles.modalCancel}
-                                                onPress={() => this.setState({ modal : false })}>
+                                                onPress={this.modalClose}>
                                                     <Text>peruuta</Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -172,15 +199,12 @@ export default class Gym extends Component {
                 <View style={styles.bottomTab}>
                         <TouchableOpacity style={styles.button} onPress={() => this.setState({ newPage : false }) }>
                             <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
-                            <Text style={styles.text}>del</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => console.log('mid')}>
+                        <TouchableOpacity style={styles.button} onPress={this.debug}>
                             <FontAwesomeIcon icon = {faFolder} style={styles.text} />
-                            <Text style={styles.text}>old</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => console.log('save')}>
+                        <TouchableOpacity style={styles.button} onPress={this.debug2}>
                             <FontAwesomeIcon icon = {faSave} style={styles.text} />
-                            <Text style={styles.text}>save</Text>
                         </TouchableOpacity>
                     </View>
             </View>
@@ -210,10 +234,12 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start' 
     },  
     newButton: {
+        flexDirection: 'row',
         width: '80%',
         borderColor: '#000',
         borderWidth: 1,
         alignItems: 'center',
+        justifyContent: 'center',
 
     },
     bottomTab: {
