@@ -1,29 +1,43 @@
 import React, { Component, useState} from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, ScrollView, View, TextInput, Modal } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faDumbbell, faPlusCircle, faTrashAlt, faFolder, faSave } from '@fortawesome/free-solid-svg-icons'
 import Exercise from '../../components/Exercise';
-import { faDumbbell, faPlusCircle, faStickyNote, faClipboardList } from '@fortawesome/free-solid-svg-icons'
 
-export default class Schedules extends Component {
+export default class Gym extends Component {
 
     state = {
         title: '',
         newPage: true,
         modal: true,
-        showNew: false,
-        exercises: [{
-            exerName:'',
-            exerSets:'',
-            exerReps: '',
-            exerWeight:'',
-        }],
+        showNew: true,
+        exerciseCount = 0,
         exerName: '',
         exerSets:'',
         exerReps: '',
         exerWeight:'',
+    };
+
+    
+
+    showExercise = () => {
+        
+        
+        
+
+        
+            /*this.setState({exerName : '' })
+            this.setState({exerSets : '' })
+            this.setState({exerReps : '' })
+            this.setState({exerWeight : '' })*/
+
+
+            
+
+        
+
+        this.setState({ showNew : true})
     }
-    
-    
 
     save = (event, index) => {
         //Modalthis.setState({ exercises : [...this.state.exercises, ]})
@@ -43,7 +57,10 @@ export default class Schedules extends Component {
     }
     
     render(){
-        
+        let Exercisetest = <Exercise name={this.state.exerName}
+        sets={this.state.exerSets}
+        reps={this.state.exerReps}
+        weight={this.state.exerWeight}></Exercise>
         const newPage = this.state.newPage
         let pageContent;
         if ( newPage == false ) 
@@ -57,14 +74,19 @@ export default class Schedules extends Component {
                                 <TextInput multiline maxLength={60} style={styles.header}
                                     placeholder="Otsikko"
                                 ></TextInput>
+
+                               
+                                
                                 {/*{this.state.showNew &&
                                 <Exercise style={{opacity:'0'}}
+
                                     name={this.state.exerName}
                                     sets={this.state.exerSets}
                                     reps={this.state.exerReps}
-                                    weight={this.state.exerWeight}/>
+                                    weight={this.state.exerWeight} />
+                                
                                 }
-                                {
+                                
                                     this.state.exercises.map((exercise) => {
                                         return <Exercise
                                             name={this.state.exerName}
@@ -125,7 +147,7 @@ export default class Schedules extends Component {
                                             <View style={styles.modalButtons}>
                                                 <TouchableOpacity 
                                                 style={styles.modalSave}
-                                                onPress = {event => this.save(event, index)}>
+                                                onPress = {this.showExercise}>
                                                     <Text>Lisää listalle</Text>
                                                 </TouchableOpacity>
                                                 <TouchableOpacity 
@@ -142,19 +164,22 @@ export default class Schedules extends Component {
         }    
         return (
             <View style={ styles.container}>
-                <View style={[this.state.newPage ? styles.test2 : styles.test]}>
+                <View style={[this.state.newPage ? styles.newPage : styles.emptyPage]}>
                     
                     {pageContent}
                     
                 </View> 
                 <View style={styles.bottomTab}>
                         <TouchableOpacity style={styles.button} onPress={() => this.setState({ newPage : false }) }>
+                            <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
                             <Text style={styles.text}>del</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => console.log('mid')}>
+                            <FontAwesomeIcon icon = {faFolder} style={styles.text} />
                             <Text style={styles.text}>old</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => console.log('save')}>
+                            <FontAwesomeIcon icon = {faSave} style={styles.text} />
                             <Text style={styles.text}>save</Text>
                         </TouchableOpacity>
                     </View>
@@ -170,14 +195,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 15,
     },
-    test:{
+    emptyPage:{
         width: '80%',
         backgroundColor: "#f7d023",
         flex: 16,  
         alignItems: 'center',  
         justifyContent:'center' 
     },
-    test2: {
+    newPage: {
         width: '80%',
         backgroundColor: "#f7d023",
         flex: 16,  
@@ -198,17 +223,22 @@ const styles = StyleSheet.create({
         position: 'relative',
         flexDirection:'row',
         justifyContent: 'space-evenly',
-        backgroundColor: "#5d5d66",
+        backgroundColor: "#0c154a",
+        borderWidth: 1.5,
+        borderColor: '#152684',
         borderRadius: 10,
     },
     button: {
         width: '15%',
         backgroundColor:"#fff",
         alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        backgroundColor: '#0c154a',
     },
     text: {
         fontWeight: 'bold',
-        color: 'black'
+        color: '#b8b8b8'
     },
     header: {
         padding: 2,

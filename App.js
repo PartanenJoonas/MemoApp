@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { StyleSheet, SafeAreaView, Text, Keyboard, ScrollView, View, StatusBar } from 'react-native';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faDumbbell, faStickyNote, faClipboardList } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDumbbell, faStickyNote, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { NavigationContainer } from '@react-navigation/native';
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Note from './app/screens/note';

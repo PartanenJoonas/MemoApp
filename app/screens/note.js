@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ActionBar from '../../components/ActionBar';
 import { render } from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faDumbbell, faPlusCircle, faTrashAlt, faFolder, faSave } from '@fortawesome/free-solid-svg-icons'
 
 export default class Note extends Component {
     
@@ -81,12 +82,15 @@ export default class Note extends Component {
 
                 <View style={styles.bottomTab}>
                     <TouchableOpacity style={styles.button}>
+                        <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
                         <Text style={styles.text}>del</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.debug}>
+                        <FontAwesomeIcon icon = {faFolder} style={styles.text} />
                         <Text style={styles.text}>old</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.saveButton}>
+                        <FontAwesomeIcon icon = {faSave} style={styles.text} />
                         <Text style={styles.text}>save</Text>
                     </TouchableOpacity>
                 </View>
@@ -127,19 +131,23 @@ const styles = StyleSheet.create({
         position: 'relative',
         flexDirection:'row',
         justifyContent: 'space-evenly',
-        backgroundColor: "#5d5d66",
+        backgroundColor: "#0c154a",
+        borderWidth: 1.5,
+        borderColor: '#152684',
         borderRadius: 10,
-      },
-      button: {
+    },
+    button: {
         width: '15%',
         backgroundColor:"#fff",
         alignItems: 'center',
-      },
-      text: {
+        justifyContent: 'center',
+        borderRadius: 10,
+        backgroundColor: '#0c154a',
+    },
+    text: {
         fontWeight: 'bold',
-        
-        color: 'black'
-      },
+        color: '#b8b8b8'
+    },
 
 })
 
