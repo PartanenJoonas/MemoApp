@@ -197,16 +197,16 @@ export default class Gym extends Component {
                     
                 </View> 
                 <View style={styles.bottomTab}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.setState({ newPage : false }) }>
-                            <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={this.debug}>
-                            <FontAwesomeIcon icon = {faFolder} style={styles.text} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={this.debug2}>
-                            <FontAwesomeIcon icon = {faSave} style={styles.text} />
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style={styles.button} onPress={() => this.setState({ newPage : false }) }>
+                        <FontAwesomeIcon icon = {faTrashAlt} style={styles.text} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.debug}>
+                        <FontAwesomeIcon icon = {faFolder} style={styles.text} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.debug2}>
+                        <FontAwesomeIcon icon = {faSave} style={styles.text} />
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
