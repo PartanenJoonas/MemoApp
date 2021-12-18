@@ -1,18 +1,126 @@
-import React from 'react';
-import { StyleSheet, Text, Keyboard, ScrollView, View, TextInput, Button } from 'react-native';
-import ActionBar from '../../components/ActionBar';
+import React, { useState } from 'react';
+import { StyleSheet, Text, Button,  Platform, View, TouchableOpacity, } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function Schedules ( { navigation } ) {
-    return (
-        <View style={styles.container}>
-            <View style={styles.test}>
-                <View style={styles.test2}>
-                    <Text>06-07</Text>
-                    <TextInput></TextInput>
-                </View>
-            </View> 
+export default function Schedules ( ) {
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [selectedDate, setTaskDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
+    const [showPage, setPage] = useState(false);
+    const [showStartPage, setStart] = useState(true);
+
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+      };
+    
+      const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+      };
+    
+      const showDatepicker = () => {
+        showMode('date');
+      };
+    
+      const showTimepicker = () => {
+        showMode('time');
+      };
+      const debug = () => {
+          console.log(date)
+          setPage(true)
+      }
+      const handleConfirm = () => {
+          console.log('confirmed')
+      }
+
+      const formatDateAndTime = () => {
+          let datetime = date.toString()
+          let selectedDate;
+          let dateArray = []
+          dateArray = datetime.split( ' ' )
+          
+          //dateArray = dateArray.slice(0, 4)
+          selectedDate = dateArray[0] + ' ' + dateArray [2] + ' ' + dateArray [1] + ' ' + dateArray [3]
+          setTaskDate(selectedDate)
+          console.log(selectedDate)
+          console.log(datetime)
+      }
+
+      const pickDate = 
+        <View style={styles.datePage}>
+            <Text>{ selectedDate.toString() }</Text>
+
             
+            <TouchableOpacity 
+            style={styles.dateButtons}
+            onPress={showDatepicker} >
+                <Text>Set date</Text>
+            </TouchableOpacity>
+              
+            <TouchableOpacity 
+            style={styles.dateButtons}
+            onPress={showTimepicker}>
+                <Text>Set time</Text>
+            </TouchableOpacity>
+
+            <View>
+            <Button
+            onPress={formatDateAndTime} title="debug"
+            ></Button>
+            </View>
         </View>
+        
+        
+
+      const pageContent = 
+        <View>
+            <Button onPress={showDatepicker} title="Show date picker!" />
+        </View>
+
+    
+    return (
+
+        
+        <View style={styles.container}>
+            {showStartPage && (
+            pickDate
+            )}
+            {show && (
+            <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            minuteInterval={5}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+            
+            />
+        )}
+            {/*
+            <View>
+                <Button onPress={showDatepicker} title="Show date picker!" />
+            </View>
+            <View>
+                <Button onPress={showTimepicker} title="Show time picker!" />
+            </View>
+            <View>
+                <Button onPress={debug} title="debug" />
+            </View>
+            */}
+            
+            {showPage && (
+                pageContent
+                
+            )}
+    </View>
         
     )
 }
@@ -25,6 +133,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     
       
+    },
+    datePage: {
+        flex: 1,
+        backgroundColor: '#f7d023',
+        width: '80%'
+    },
+    dateButtons: {
+        backgroundColor: '#fff'
     },
     test:{
         marginTop: 10,

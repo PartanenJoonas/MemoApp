@@ -76,7 +76,7 @@ export default class Gym extends Component {
         {
             pageContent =   <TouchableOpacity style={styles.newButton} onPress={() => this.setState({ newPage : true }) }>
                                 <FontAwesomeIcon icon = {faPlusCircle}/>
-                                <Text style={styles.text}>Add new workout</Text>
+                                <Text style={styles.firsPageText}>Add new workout</Text>
                             </TouchableOpacity>
         } else 
         {
@@ -265,6 +265,11 @@ const styles = StyleSheet.create({
     text: {
         fontWeight: 'bold',
         color: '#b8b8b8'
+    },
+    firsPageText: {
+        fontWeight: 'bold',
+        color: '#000',
+        paddingHorizontal: 10
     },
     header: {
         padding: 2,
